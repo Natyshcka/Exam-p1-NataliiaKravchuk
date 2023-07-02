@@ -47,6 +47,7 @@
     "@bahmutov/print-env": "1.2.0",
     "@faker-js/faker": "^8.0.2",
     "colon-names": "1.0.0",
+    "cypress-xpath": "^2.0.1",
     "execa": "2.0.5",
     "globby": "13.1.2",
     "husky": "^8.0.3",
