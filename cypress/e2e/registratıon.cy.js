@@ -2,26 +2,33 @@ import homePage from "../support/pages/HomePage"
 import accountPage from "../support/pages/AccountPage"
 import {faker} from '@faker-js/faker'
 import user from "../fixtures/user.json"
+import RegistrationPage from "../support/pages/RegistrationPage"
+
 
 describe('Registration min password', () => {
   beforeEach(() => {
-    homePage.visit()
-    
+    homePage.visit();
+    homePage.closeBanner().click()
+    homePage.closeCookiesPopUP().click()
+    homePage.getAccountButton().click()
+    homePage.getLoginButton().click()
   })
 
   user.email = faker.internet.email();
-  user.password = faker.internet.password({ length: 5 });
+  user.password = faker.internet.password('#####');
 
  it('registration min sign in password', () => {
-    cy.get('[routerlink="/register"]').click()
-    cy.get('[id="emailControl"]').type(user.email)
-    cy.get('[aria-label="Field for the password"]').type(user.password)
-    cy.get('[id=repeatPasswordControl]').type(user.password)
-    cy.get('[class="mat-slide-toggle-bar"]').click()
-    cy.get('[class="mat-form-field-infix ng-tns-c119-16"]').click()
-    cy.get('[id="mat-option-6"]').click()
-    cy.get('[class="mat-form-field-infix ng-tns-c119-18"]').type(user.answer)
-    cy.get('[id="registerButton"]').click()
+   RegistrationPage.getLoginPage().click()
+   RegistrationPage.typeEmail().type(user.email)
+   RegistrationPage.typePassword().type(user.password)
+   RegistrationPage.repeatTypePassword().type(user.password)
+   RegistrationPage.showPasswordAdvice().click()
+   RegistrationPage.getSecurityQuestionList().click()
+   RegistrationPage.selectSecurityQuestionList().click()
+   RegistrationPage.typeUserAnswer().type(user.answer)
+   RegistrationPage.getRegistrationButton().click()
+   cy.get('.mat-simple-snack-bar-content')
+   .should('have.text', 'Registration completed successfully. You can now log in.')
 
   })
 
@@ -34,23 +41,28 @@ describe('Registration min password', () => {
 
   describe('Registration random password', () => {
     beforeEach(() => {
-      homePage.visit()
-      
+    homePage.visit();
+    homePage.closeBanner().click()
+    homePage.closeCookiesPopUP().click()
+    homePage.getAccountButton().click()
+    homePage.getLoginButton().click()
     })
   
   user.email = faker.internet.email();
   user.password = faker.internet.password();
 
    it('registration random password', () => {
-      cy.get('[routerlink="/register"]').click()
-      cy.get('[id="emailControl"]').type(user.email)
-      cy.get('[aria-label="Field for the password"]').type(user.password)
-      cy.get('[id=repeatPasswordControl]').type(user.password)
-      cy.get('[class="mat-slide-toggle-bar"]').click()
-      cy.get('[class="mat-form-field-infix ng-tns-c119-16"]').click()
-      cy.get('[id="mat-option-6"]').click()
-      cy.get('[class="mat-form-field-infix ng-tns-c119-18"]').type(user.answer)
-      cy.get('[id="registerButton"]').click()
+    RegistrationPage.getLoginPage().click()
+    RegistrationPage.typeEmail().type(user.email)
+    RegistrationPage.typePassword().type(user.password)
+    RegistrationPage.repeatTypePassword().type(user.password)
+    RegistrationPage.showPasswordAdvice().click()
+    RegistrationPage.getSecurityQuestionList().click()
+    RegistrationPage.selectSecurityQuestionList().click()
+    RegistrationPage.typeUserAnswer().type(user.answer)
+    RegistrationPage.getRegistrationButton().click()
+    cy.get('.error').should('have.text', 'Email must be unique')
+
 })
 
  it('authorithation random password',() => {
@@ -63,7 +75,11 @@ describe('Registration min password', () => {
 
   describe('Registration witout key question', () => {
     beforeEach(() => {
-      homePage.visit()
+    homePage.visit();
+    homePage.closeBanner().click()
+    homePage.closeCookiesPopUP().click()
+    homePage.getAccountButton().click()
+    homePage.getLoginButton().click()
       
     })
   
@@ -71,12 +87,12 @@ describe('Registration min password', () => {
   user.password = faker.internet.password();
   
   it('registration witout key question', () => {
-    cy.get('[routerlink="/register"]').click()
-    cy.get('[id="emailControl"]').type(user.email)
-    cy.get('[aria-label="Field for the password"]').type(user.password)
-    cy.get('[id=repeatPasswordControl]').type(user.password)
-    cy.get('[class="mat-slide-toggle-bar"]').click()
-    cy.get('[class="mat-form-field-infix ng-tns-c119-18"]').type(user.answer)
+   RegistrationPage.getLoginPage().click()
+   RegistrationPage.typeEmail().type(user.email)
+   RegistrationPage.typePassword().type(user.password)
+   RegistrationPage.repeatTypePassword().type(user.password)
+   RegistrationPage.showPasswordAdvice().click()
+   RegistrationPage.typeUserAnswer().type(user.answer)
     cy.get('[id="registerButton"]').should('be.disabled')
     
 })

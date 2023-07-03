@@ -5,6 +5,10 @@ import user from '../fixtures/userlogin.json'
 describe('Authorithation', () => {
  beforeEach(() => {
   homePage.visit()
+  homePage.closeBanner().click()
+    homePage.closeCookiesPopUP().click()
+    homePage.getAccountButton().click()
+    homePage.getLoginButton().click()
 })
 
  it('authorithation',() => {
@@ -13,7 +17,7 @@ describe('Authorithation', () => {
   })
 
   it('invalid authorithation',() => {
-    cy.get('[id="email"]').type(user.password)
+   cy.get('#email').type(user.password)
     cy.get('[id="password"]').type(user.email)
     cy.get('[id="loginButton"]').click()
     cy.get('[class="error ng-star-inserted"]').should('contain', 'Invalid email or password.' )

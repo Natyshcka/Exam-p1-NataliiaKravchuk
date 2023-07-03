@@ -4,7 +4,7 @@ class AccountPage{
         cy.visit('https://juice-shop-sanitarskyi.herokuapp.com/#/login')
     }
     getEmailfield(){
-        return cy.get('[id="email"]')
+        return cy.get('#email')
     }
     getPassworfield(){
         return cy.get('[id="password"]')
